@@ -14,8 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyType: Y
   hp: 100
-  damage: 10
   searchRange: 3
-  moveSpeed: 10
-  range: 3
+  moveSpeed: 1
   height: 3

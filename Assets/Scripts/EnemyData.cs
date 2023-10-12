@@ -11,11 +11,7 @@ public class EnemyData : ScriptableObject
 
     [SerializeField]
     private float hp;
-    public float Hp { get { return hp; } set { hp = value; } }
-
-    [SerializeField]
-    private float damage;
-    public float Damage { get { return damage; } }
+    public float Hp { get { return hp; }}
 
     [SerializeField]
     private float searchRange;
@@ -25,9 +21,6 @@ public class EnemyData : ScriptableObject
     private float moveSpeed;
     public float MoveSpeed { get { return moveSpeed; } }
 
-    [SerializeField]
-    private float range;
-    public float Range { get { return range; } }
     [SerializeField]
     private float height;
     public float Height { get { return height; } }

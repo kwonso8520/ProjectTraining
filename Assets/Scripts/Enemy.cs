@@ -4,25 +4,32 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField]private EnemyData enemyData;
+    [SerializeField]
+    private EnemyData enemyData;
     public EnemyData EnemyData { set{ enemyData = value; } }
     private Rigidbody2D rigid;
     public int nextMove;
     SpriteRenderer spriteRenderer;
-    [SerializeField]LayerMask layerMask;
+    [SerializeField]
+    LayerMask layerMask;
+    private float time;
+    [SerializeField]
+    private float fadeTime;
+    public float enemyHp;
     // Start is called before the first frame update
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        enemyHp = enemyData.Hp;
         Invoke("Think", 5);
     }
 
     private void FixedUpdate()
     {
         //Move
-        rigid.velocity = new Vector3 (nextMove, rigid.velocity.y);
-
+        rigid.velocity = new Vector3 (nextMove * enemyData.MoveSpeed, rigid.velocity.y);
+            
         //Platform Check
         Vector2 frontVec = new Vector2 (rigid.position.x + nextMove * 0.2f, rigid.position.y);
         Debug.DrawRay(frontVec, Vector3.down * enemyData.Height, new Color(0, 1, 0));
@@ -30,6 +37,13 @@ public class Enemy : MonoBehaviour
         if(hit.collider == null)
         {
             Turn();
+        }
+    }
+    private void Update()
+    {
+        if (enemyHp <= 0)
+        {
+            Disapear();
         }
     }
     private void Think()
@@ -45,6 +59,10 @@ public class Enemy : MonoBehaviour
         float thinkTime = Random.Range(2f, 5f);
         Invoke("Think", thinkTime);
     }
+    public void TakeDamage(float damage)
+    {
+        enemyHp = enemyHp - damage;
+    }
     private void Turn()
     {
         Debug.Log("경고! 이앞에 길없음");
@@ -53,5 +71,17 @@ public class Enemy : MonoBehaviour
 
         CancelInvoke();
         Invoke("Think", 2);
+    }
+    private void Disapear()
+    {
+        if (time < fadeTime)
+        {
+            GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1f - time / fadeTime);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+        time += Time.deltaTime;
     }
 }
