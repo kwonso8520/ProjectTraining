@@ -8,10 +8,15 @@ public class PlayerMove : MonoBehaviour
     private float speed = 5.0f;
     [SerializeField]
     private float jumpPower = 3.0f;
-    [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private Transform foot;
+    [SerializeField]
+    private LayerMask groundLayer;
+    [SerializeField] 
+    private Transform foot;
     private Rigidbody2D rigid;
     bool isGrounded = false;
+    [SerializeField]
+    private GameObject gameOverText;
+
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
@@ -35,5 +40,12 @@ public class PlayerMove : MonoBehaviour
     {
         rigid.velocity = new Vector2(rigid.velocity.x, 0f);
         rigid.AddForce(Vector3.up * jumpPower,ForceMode2D.Impulse);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Enemy"))
+        {
+            Destroy(gameObject);
+        }
     }
 }
