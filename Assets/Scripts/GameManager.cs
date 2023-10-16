@@ -6,18 +6,43 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField]
+    public static GameManager _instance;
+
     private Button startButton;
-    [SerializeField]
+
     private Button exitButton;
 
-    private int sceneIndex;
+    public int sceneIndex;
 
+    private UiManager uiManager;
+
+    private void Awake()
+    {
+        if (_instance != null)
+        {
+            Destroy(gameObject);
+        }
+        _instance = this;
+    }
     void Start()
     {
+        startButton = GetComponent<Button>();
+        exitButton = GetComponent<Button>();
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
         startButton.onClick.AddListener(LoadGameScene);
         exitButton.onClick.AddListener(ExitGame);
+        uiManager = GameObject.Find("UiManager").GetComponent<UiManager>();
+    }
+    private void Update()
+    {
+        if(sceneIndex >= 1)
+        {
+            uiManager.isPlaying = true;
+        }
+        else
+        {
+            uiManager.isPlaying = false;
+        }
     }
     private void LoadGameScene()
     {
@@ -25,6 +50,6 @@ public class GameManager : MonoBehaviour
     }
     private void ExitGame()
     {
-        Application.Quit();
+        Application.Quit(); 
     }
 }

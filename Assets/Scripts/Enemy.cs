@@ -16,12 +16,14 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     private float fadeTime;
     public float enemyHp;
+    private Collider2D col;
     // Start is called before the first frame update
     void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         enemyHp = enemyData.Hp;
+        col = GetComponent<Collider2D>();
         Invoke("Think", 5);
     }
 
@@ -74,6 +76,7 @@ public class Enemy : MonoBehaviour
     }
     private void Disapear()
     {
+        col.enabled = false;
         if (time < fadeTime)
         {
             GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1f - time / fadeTime);

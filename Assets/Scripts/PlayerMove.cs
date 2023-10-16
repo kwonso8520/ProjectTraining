@@ -14,8 +14,6 @@ public class PlayerMove : MonoBehaviour
     private Transform foot;
     private Rigidbody2D rigid;
     bool isGrounded = false;
-    [SerializeField]
-    private GameObject gameOverText;
 
     private void Awake()
     {

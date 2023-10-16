@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Y
   m_EditorClassIdentifier: 
   enemyType: Y
-  hp: 100
+  hp: 1000
   searchRange: 3
   moveSpeed: 1
   height: 3
