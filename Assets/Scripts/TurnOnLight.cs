@@ -9,8 +9,6 @@ public class TurnOnLight : MonoBehaviour
     [SerializeField]
     private GameObject Light;
     [SerializeField]
-    private GameObject flashLight;
-    [SerializeField]
     private Slider gaugeBar;
     [SerializeField]
     public float maxLightGauge = 100;

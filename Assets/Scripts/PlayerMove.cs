@@ -14,6 +14,10 @@ public class PlayerMove : MonoBehaviour
     private Transform foot;
     private Rigidbody2D rigid;
     bool isGrounded = false;
+    [SerializeField]
+    private GameObject gameOverText;
+    [SerializeField]
+    private GameObject gauge;
 
     private void Awake()
     {
@@ -43,7 +47,13 @@ public class PlayerMove : MonoBehaviour
     {
         if (collision.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
+            Die();
         }
+    }
+    private void Die()
+    {
+        gameOverText.SetActive(true);
+        gauge.SetActive(false);
+        Destroy(gameObject);
     }
 }

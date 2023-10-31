@@ -6,43 +6,32 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager _instance;
-
+    [SerializeField]
     private Button startButton;
-
+    [SerializeField]
     private Button exitButton;
+    [SerializeField]
+    private Button settingButton;
+    [SerializeField]
+    private Button manualButton;
 
     public int sceneIndex;
 
-    private UiManager uiManager;
+    [SerializeField]
+    private GameObject mouseClick;
+    [SerializeField]
+    private GameObject mouseUnClick;
+    [SerializeField]
+    private GameObject manualObject;
 
-    private void Awake()
-    {
-        if (_instance != null)
-        {
-            Destroy(gameObject);
-        }
-        _instance = this;
-    }
+
     void Start()
     {
-        startButton = GetComponent<Button>();
-        exitButton = GetComponent<Button>();
         sceneIndex = SceneManager.GetActiveScene().buildIndex;
         startButton.onClick.AddListener(LoadGameScene);
         exitButton.onClick.AddListener(ExitGame);
-        uiManager = GameObject.Find("UiManager").GetComponent<UiManager>();
-    }
-    private void Update()
-    {
-        if(sceneIndex >= 1)
-        {
-            uiManager.isPlaying = true;
-        }
-        else
-        {
-            uiManager.isPlaying = false;
-        }
+        manualButton.onClick.AddListener(ShowManual);
+        StartCoroutine("MouseBlink");
     }
     private void LoadGameScene()
     {
@@ -51,5 +40,21 @@ public class GameManager : MonoBehaviour
     private void ExitGame()
     {
         Application.Quit(); 
+    }
+    private void ShowManual()
+    {
+        manualObject.SetActive(true);
+    }
+    private IEnumerator MouseBlink()
+    {
+        while (true)
+        {
+            mouseClick.SetActive(false);
+            mouseUnClick.SetActive(true);
+            yield return new WaitForSeconds(1f);
+            mouseClick.SetActive(true);
+            mouseUnClick.SetActive(false);
+            yield return new WaitForSeconds(1f);
+        }
     }
 }

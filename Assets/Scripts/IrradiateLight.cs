@@ -12,5 +12,9 @@ public class IrradiateLight : MonoBehaviour
         {
                 collision.GetComponent<Enemy>().TakeDamage(lightDamage);
         }
+        else if (collision.CompareTag("StopEnemy"))
+        {
+            collision.GetComponent <StopEnemy>().TakeDamage(lightDamage);
+        }
     }
 }
