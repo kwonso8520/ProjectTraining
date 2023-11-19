@@ -15,5 +15,5 @@ MonoBehaviour:
   enemyType: C
   hp: 700
   searchRange: 2
-  moveSpeed: 3
+  moveSpeed: 2
   height: 0

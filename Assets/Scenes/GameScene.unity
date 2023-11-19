@@ -1386,7 +1386,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -808.1, y: -250.1}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 118.4, y: 26.4}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &659036666
@@ -1940,6 +1940,37 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!1 &1059801269
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1059801270}
+  m_Layer: 0
+  m_Name: Head
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1059801270
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1059801269}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1422452230}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1143353002
 GameObject:
   m_ObjectHideFlags: 0
@@ -2521,6 +2552,7 @@ Transform:
   - {fileID: 1639776529}
   - {fileID: 749974458}
   - {fileID: 1143353003}
+  - {fileID: 1059801270}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1422452231
@@ -2543,6 +2575,8 @@ MonoBehaviour:
   foot: {fileID: 1143353003}
   gameOverText: {fileID: 198361717}
   gauge: {fileID: 659036664}
+  camera: {fileID: 519420031}
+  head: {fileID: 1059801270}
 --- !u!114 &1422452232
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2571,7 +2605,7 @@ Animator:
   m_GameObject: {fileID: 1422452224}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: f25ce1fe844b5734284452302f97828a, type: 2}
+  m_Controller: {fileID: 9100000, guid: beb30cd854247664ab657f320d0fbfa6, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

@@ -18,25 +18,43 @@ public class PlayerMove : MonoBehaviour
     private GameObject gameOverText;
     [SerializeField]
     private GameObject gauge;
-
+    private Animator animator;
+    private SpriteRenderer spriteRenderer;
+    public Camera camera;
+    public Transform head;
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
-    }
-    void Start()
-    {
-        
+        animator = GetComponent<Animator>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
     void Update()
     {
-        float h = Input.GetAxis("Horizontal");
-        Vector3 dir = new Vector3(h, 0, 0);
-        transform.Translate(dir * speed * Time.deltaTime);
-        isGrounded = Physics2D.OverlapCircle(foot.position, 0.1f, groundLayer);
+        gauge.transform.position = camera.WorldToScreenPoint(head.position + new Vector3(0,1.3f,0));
         if (Input.GetKey(KeyCode.Space) && isGrounded)
         {
             Jump();
         }
+    }
+    private void FixedUpdate()
+    {
+        Move();
+    }
+    private void Move()
+    {
+        float h = Input.GetAxis("Horizontal");
+        Vector3 dir = new Vector3(h, 0, 0);
+        animator.SetFloat("Speed", Mathf.Abs(h));
+        if(h < 0)
+        {
+            spriteRenderer.flipX = true;
+        }
+        else
+        {
+            spriteRenderer.flipX = false;
+        }
+        transform.Translate(dir * speed * Time.deltaTime);
+        isGrounded = Physics2D.OverlapCircle(foot.position, 0.1f, groundLayer);
     }
     private void Jump()
     {

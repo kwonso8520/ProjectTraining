@@ -45,6 +45,10 @@ public class GameManager : MonoBehaviour
     {
         manualObject.SetActive(true);
     }
+    public void BackTitle()
+    {
+        manualObject.SetActive(false);
+    }
     private IEnumerator MouseBlink()
     {
         while (true)
