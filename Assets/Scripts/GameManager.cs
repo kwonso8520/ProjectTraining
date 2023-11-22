@@ -33,7 +33,7 @@ public class GameManager : MonoBehaviour
         manualButton.onClick.AddListener(ShowManual);
         StartCoroutine("MouseBlink");
     }
-    private void LoadGameScene()
+    public void LoadGameScene()
     {
         SceneManager.LoadScene(sceneIndex + 1);
     }
