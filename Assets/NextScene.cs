@@ -5,7 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class NextScene : MonoBehaviour
 {
-    private GameManager gm;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,7 +17,7 @@ public class NextScene : MonoBehaviour
         GameObject leftEnemy = GameObject.FindGameObjectWithTag("Enemy");
         if(leftEnemy == null)
         {
-            gm.LoadGameScene();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
 }
