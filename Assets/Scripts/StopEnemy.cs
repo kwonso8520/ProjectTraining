@@ -24,17 +24,12 @@ public class StopEnemy : MonoBehaviour
     }
     void Update()
     {
-        if (enemyHp <= 0)
-        {
-            Disapear();
-        }
-
         if (rushTrigger)
         {
             direction = (playerPos.position - transform.position);
             direction.Normalize();
-
             GetComponent<Rigidbody2D>().AddForce(direction * enemyData.MoveSpeed);
+            Invoke("Disapear", 1f);
         }
     }
     private void OnTriggerEnter2D(Collider2D collision)

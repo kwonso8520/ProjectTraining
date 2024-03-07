@@ -10,10 +10,10 @@ public class PlayerMove : MonoBehaviour
     private float jumpPower = 3.0f;
     [SerializeField]
     private LayerMask groundLayer;
-    [SerializeField] 
+    [SerializeField]
     private Transform foot;
     private Rigidbody2D rigid;
-    bool isGrounded = false;
+    public bool isGrounded = false;
     [SerializeField]
     private GameObject gameOverText;
     [SerializeField]
@@ -22,15 +22,18 @@ public class PlayerMove : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     public Camera camera;
     public Transform head;
+    private TurnOnLight turnOnLight;
     private void Awake()
     {
         rigid = GetComponent<Rigidbody2D>();
         animator = GetComponent<Animator>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        turnOnLight = FindAnyObjectByType<TurnOnLight>();
     }
     void Update()
     {
-        gauge.transform.position = camera.WorldToScreenPoint(head.position + new Vector3(0,1.3f,0));
+        if (transform.position.y < -7) Die();
+        gauge.transform.position = camera.WorldToScreenPoint(head.position + new Vector3(0, 1.3f, 0));
         if (Input.GetKey(KeyCode.Space) && isGrounded)
         {
             Jump();
@@ -45,7 +48,13 @@ public class PlayerMove : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
         Vector3 dir = new Vector3(h, 0, 0);
         animator.SetFloat("Speed", Mathf.Abs(h));
-        if(h < 0)
+        Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
+        if (pos.x < 0f) pos.x = 0f;
+        if (pos.x > 1f) pos.x = 1f;
+        if (pos.y < 0f) pos.y = 0f;
+        if (pos.y > 1f) pos.y = 1f;
+        transform.position = Camera.main.ViewportToWorldPoint(pos);
+        if (h < 0)
         {
             spriteRenderer.flipX = true;
         }
@@ -59,13 +68,21 @@ public class PlayerMove : MonoBehaviour
     private void Jump()
     {
         rigid.velocity = new Vector2(rigid.velocity.x, 0f);
-        rigid.AddForce(Vector3.up * jumpPower,ForceMode2D.Impulse);
+        rigid.AddForce(Vector3.up * jumpPower, ForceMode2D.Impulse);
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy"))
+        if (collision.CompareTag("Enemy") || collision.CompareTag("StopEnemy"))
         {
             Die();
+        }
+    }
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.collider.CompareTag("Battery"))
+        {
+            turnOnLight.currentLightGauge += turnOnLight.maxLightGauge / 10;
+            Destroy(collision.gameObject);
         }
     }
     private void Die()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: W
   m_EditorClassIdentifier: 
   enemyType: W
-  hp: 3000
+  hp: 2000
   searchRange: 0
   moveSpeed: 2
   height: 1
