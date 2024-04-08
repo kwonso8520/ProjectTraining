@@ -15,7 +15,7 @@ public class PlayerMove : MonoBehaviour
     private Rigidbody2D rigid;
     public bool isGrounded = false;
     [SerializeField]
-    private GameObject gameOverText;
+    private GameObject gameOverUI;
     [SerializeField]
     private GameObject gauge;
     private Animator animator;
@@ -51,7 +51,6 @@ public class PlayerMove : MonoBehaviour
         Vector3 pos = Camera.main.WorldToViewportPoint(transform.position);
         if (pos.x < 0f) pos.x = 0f;
         if (pos.x > 1f) pos.x = 1f;
-        if (pos.y < 0f) pos.y = 0f;
         if (pos.y > 1f) pos.y = 1f;
         transform.position = Camera.main.ViewportToWorldPoint(pos);
         if (h < 0)
@@ -87,7 +86,7 @@ public class PlayerMove : MonoBehaviour
     }
     private void Die()
     {
-        gameOverText.SetActive(true);
+        gameOverUI.SetActive(true);
         gauge.SetActive(false);
         Destroy(gameObject);
     }
